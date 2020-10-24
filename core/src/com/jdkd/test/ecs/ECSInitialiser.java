@@ -5,6 +5,7 @@ import com.artemis.WorldConfigurationBuilder;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.jdkd.test.ecs.system.logic.AddPreviousPositionSystem;
+import com.jdkd.test.ecs.system.logic.InputSystem;
 import com.jdkd.test.ecs.system.logic.PositionUpdater;
 import com.jdkd.test.ecs.system.logic.UpdatePreviousPositionSystem;
 import com.jdkd.test.ecs.system.render.FPSRenderSystem;
@@ -35,6 +36,7 @@ public class ECSInitialiser {
                 .with(new PositionUpdater())
                 .with(new InterpolatingTextureRenderSystem(spriteBatch, ecsState))
                 .with(new FPSRenderSystem(spriteBatch, new BitmapFont()))
+                .with(new InputSystem())
                 .register(new FixedTimeStepInvocationStrategy(ecsState));
 
         return new World(worldConfigurationBuilder.build());

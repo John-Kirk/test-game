@@ -27,7 +27,7 @@ public class TestGame extends ApplicationAdapter {
 		world.createEntity().edit()
 			.add(new Position(0, 0))
 			.add(new TextureReference("badlogic.jpg"))
-			.add(new Body(64, 64))
+			.add(new Body(256, 256))
 			.add(new Movable());
 	}
 

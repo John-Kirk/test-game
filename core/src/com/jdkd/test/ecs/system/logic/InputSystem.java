@@ -8,7 +8,7 @@ public class InputSystem extends BaseSystem {
 
     @Override
     protected void processSystem() {
-        if (Gdx.input.isButtonPressed(Input.Keys.ESCAPE)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
             Gdx.app.exit();
         }
     }

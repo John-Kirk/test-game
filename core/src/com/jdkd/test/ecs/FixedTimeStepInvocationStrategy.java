@@ -23,7 +23,7 @@ public class FixedTimeStepInvocationStrategy extends SystemInvocationStrategy {
     private boolean systemsSorted = false;
 
     public FixedTimeStepInvocationStrategy(ECSState ecsState) {
-        this(1000/60, ecsState);
+        this(40, ecsState);
     }
 
     @Override

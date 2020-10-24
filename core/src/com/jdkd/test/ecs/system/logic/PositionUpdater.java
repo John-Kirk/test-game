@@ -9,7 +9,7 @@ import com.jdkd.test.ecs.component.Position;
 
 public class PositionUpdater extends IteratingSystem implements LogicSystem {
 
-    public static final int SPEED = 5;
+    private static final int SPEED = 5;
     private ComponentMapper<Position> positionComponentMapper;
 
     public PositionUpdater() {

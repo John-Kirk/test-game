@@ -5,20 +5,20 @@ import com.artemis.ComponentMapper;
 import com.artemis.systems.IteratingSystem;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.jdkd.test.ecs.component.Position;
+import com.jdkd.test.ecs.component.PhysicalBody;
 
 public class PositionUpdater extends IteratingSystem implements LogicSystem {
 
-    private static final int SPEED = 10;
-    private ComponentMapper<Position> positionComponentMapper;
+    private static final int SPEED = 2;
+    private ComponentMapper<PhysicalBody> physicalBodyComponentMapper;
 
     public PositionUpdater() {
-        super(Aspect.all(Position.class));
+        super(Aspect.all(PhysicalBody.class));
     }
 
     @Override
     protected void process(int entityId) {
-        Position position = positionComponentMapper.get(entityId);
+        PhysicalBody physicalBody = physicalBodyComponentMapper.get(entityId);
 
         int xMovement = 0;
         int yMovement = 0;
@@ -36,7 +36,6 @@ public class PositionUpdater extends IteratingSystem implements LogicSystem {
             xMovement += SPEED;
         }
 
-        position.setX(position.getX() + xMovement);
-        position.setY(position.getY() + yMovement);
+        physicalBody.getBody().setLinearVelocity(xMovement, yMovement);
     }
 }

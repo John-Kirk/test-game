@@ -6,29 +6,35 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.jdkd.test.ecs.ECSInitialiser;
-import com.jdkd.test.ecs.component.Body;
-import com.jdkd.test.ecs.component.Movable;
-import com.jdkd.test.ecs.component.Position;
-import com.jdkd.test.ecs.component.TextureReference;
-import com.jdkd.test.gfx.TextureLoader;
+import com.jdkd.test.ecs.component.ComponentFactory;
+import com.jdkd.test.util.UnitConverter;
 
 public class TestGame extends ApplicationAdapter {
 
 	private SpriteBatch batch;
 	private World world;
+	private ComponentFactory componentFactory;
 
 	@Override
 	public void create () {
+		com.badlogic.gdx.physics.box2d.World box2D = new com.badlogic.gdx.physics.box2d.World(new Vector2(0, 0), true);
+		UnitConverter unitConverter = new UnitConverter(100);
+		componentFactory = new ComponentFactory(box2D, unitConverter);
 		batch = new SpriteBatch();
-		ECSInitialiser ecsInitialiser = new ECSInitialiser(batch, textureReference -> new Texture(textureReference));
 
-		world = ecsInitialiser.init();
+		ECSInitialiser ecsInitialiser = new ECSInitialiser(batch, Texture::new, unitConverter);
+
+		world = ecsInitialiser.init(box2D);
 		world.createEntity().edit()
-			.add(new Position(0, 0))
-			.add(new TextureReference("badlogic.jpg"))
-			.add(new Body(256, 256))
-			.add(new Movable());
+			.add(componentFactory.createSprite("badlogic.jpg", 256, 256))
+			.add(componentFactory.createMovable())
+			.add(componentFactory.createBody(0, 0, 256, 256, false));
+
+		world.createEntity().edit()
+				.add(componentFactory.createSprite("badlogic.jpg", 128, 256))
+				.add(componentFactory.createBody(500, 500, 128, 256, true));
 	}
 
 	@Override

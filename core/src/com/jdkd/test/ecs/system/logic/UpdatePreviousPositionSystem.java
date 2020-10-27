@@ -3,24 +3,25 @@ package com.jdkd.test.ecs.system.logic;
 import com.artemis.Aspect;
 import com.artemis.ComponentMapper;
 import com.artemis.systems.IteratingSystem;
-import com.jdkd.test.ecs.component.Position;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.jdkd.test.ecs.component.PhysicalBody;
 import com.jdkd.test.ecs.component.PreviousPosition;
 
 public class UpdatePreviousPositionSystem extends IteratingSystem implements LogicSystem {
 
-    private ComponentMapper<Position> positionComponentMapper;
+    private ComponentMapper<PhysicalBody> physicalBodyComponentMapper;
     private ComponentMapper<PreviousPosition> previousPositionComponentMapper;
 
     public UpdatePreviousPositionSystem() {
-        super(Aspect.all(Position.class, PreviousPosition.class));
+        super(Aspect.all(PhysicalBody.class, PreviousPosition.class));
     }
 
     @Override
     protected void process(int entityId) {
-        Position position = positionComponentMapper.get(entityId);
+        Body body = physicalBodyComponentMapper.get(entityId).getBody();
         PreviousPosition previousPosition = previousPositionComponentMapper.get(entityId);
 
-        previousPosition.setX(position.getX());
-        previousPosition.setY(position.getY());
+        previousPosition.setX(body.getPosition().x);
+        previousPosition.setY(body.getPosition().y);
     }
 }

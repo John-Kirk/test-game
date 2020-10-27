@@ -7,8 +7,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class FPSRenderSystem extends BaseSystem {
 
-    private SpriteBatch spriteBatch;
-    private BitmapFont bitmapFont;
+    private final SpriteBatch spriteBatch;
+    private final BitmapFont bitmapFont;
     private int count;
 
     public FPSRenderSystem(SpriteBatch spriteBatch, BitmapFont bitmapFont) {

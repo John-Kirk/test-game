@@ -13,7 +13,7 @@ public class TextureLoadingSystem extends IteratingSystem {
     private final TextureLoader textureLoader;
 
     public TextureLoadingSystem(TextureLoader textureLoader) {
-        super(Aspect.all(Sprite.class));
+        super(Aspect.all(Sprite.class).exclude(Texture.class));
         this.textureLoader = textureLoader;
     }
 
